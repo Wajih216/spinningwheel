@@ -1,0 +1,7 @@
+name : user_repository
+description : The repository that handles users 
+publish_to : 'none' 
+version : 0.0.1
+
+environment : 
+  sdk : '>=3.1.0 <4.0.0'
