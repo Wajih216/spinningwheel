@@ -18,7 +18,7 @@ class FirebaseUserRepo implements UserRepository {
   
   @override
   Stream<MyUser?> get user {
-    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+    return _firebaseAuth.authStateChanges().asyncExpand((firebaseUser) async* {
       if (firebaseUser == null) {
         yield MyUser.empty;
       } else {
@@ -42,7 +42,7 @@ class FirebaseUserRepo implements UserRepository {
       myUser.userId = user.user!.uid ;
       return myUser ;   
     } catch (e) {
-      log(e.toString());
+      log(e.toString() as num);
       rethrow ;
     }
   }
@@ -52,7 +52,7 @@ class FirebaseUserRepo implements UserRepository {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);  
     } catch (e) {
-      log(e.toString());
+      log(e.toString() as num);
       rethrow ;
     }
   }
@@ -64,7 +64,7 @@ class FirebaseUserRepo implements UserRepository {
       .doc(myUser.userId)
       .set(myUser.toEntity().toDocument());
     } catch (e) {
-      log(e.toString());
+      log(e.toString() as num);
       rethrow ;
     }
   }
