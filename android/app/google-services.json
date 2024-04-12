@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645912297210",
+    "project_id": "spinning-wheel-a8e70",
+    "storage_bucket": "spinning-wheel-a8e70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645912297210:android:ed89829184faf43062d343",
+        "android_client_info": {
+          "package_name": "com.example.spinningwheel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe7dxAlHPRqOMPaRkZijc2cLwqjyfJ3po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
