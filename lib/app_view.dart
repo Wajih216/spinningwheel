@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spinningwheel/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:spinningwheel/screens/auth/views/welcome_screen.dart';
 import 'package:spinningwheel/screens/home/views/home_screen.dart';
 
 class MyAppView extends StatelessWidget {
@@ -24,10 +25,9 @@ class MyAppView extends StatelessWidget {
           if (state.status == AuthenticationStatus.authenticated) {
             return const HomeScreen(); 
           } else {
-            return WelcomeScreen();
+            return const WelcomeScreen();
           }
-        }
-),
+        }),
       )
     ); 
   }
