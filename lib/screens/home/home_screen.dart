@@ -15,9 +15,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('Spinning Wheel'),
-      ),
+      ),*/
       body: PageView(
         onPageChanged: (index) {
           setState(() => _currentIndex = index);
