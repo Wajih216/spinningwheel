@@ -5,7 +5,7 @@ import 'package:spinningwheel/Views/auth.dart';
 import 'package:spinningwheel/Views/home/views/about_view.dart';
 import 'package:spinningwheel/Views/home/views/account_settings_view.dart';
 import 'package:spinningwheel/Views/home/views/game_view.dart';
-import 'package:spinningwheel/Views/home/views/list_prizes_view.dart';
+import 'package:spinningwheel/Views/home/views/winning_page.dart';
 import 'package:spinningwheel/Views/profile.dart';
 import 'package:spinningwheel/Views/home/views/settings_view.dart';
 
@@ -111,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         controller: _pageController,
         children: <Widget>[
-          const GameView(),
-          WinningPage( userId : widget.user.id),
+          GameView(user : widget.user,),
+          WinningPage(user : widget.user),
           Profile(profile : widget.user),
         ],
       ),

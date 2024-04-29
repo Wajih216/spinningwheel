@@ -1,18 +1,22 @@
 import 'dart:math' as math;
-
+import 'package:spinningwheel/JSON/users.dart';
+import 'package:spinningwheel/JSON/winnings.dart';
+import 'package:spinningwheel/SQLite/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class GameView extends StatefulWidget {
-  const GameView({Key? key}) : super(key: key);
+  final Users user;
+  const GameView({Key? key, required this.user}) : super(key: key);
 
   @override
   State<GameView> createState() => _GameState();
 }
 
+
 class _GameState extends State<GameView> with SingleTickerProviderStateMixin {
-  
+  late DatabaseHelper _databaseHelper;
   List<double> sectors = [100, 20, 0.15, 0.5, 50, 20, 100, 50, 20, 50];
   int randomSectorIndex = -1; 
   List<double> sectorRadians = [];
@@ -32,6 +36,7 @@ class _GameState extends State<GameView> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _databaseHelper = DatabaseHelper(); 
     generateSectorRadians();
     controller = AnimationController(vsync: this, duration: const Duration(seconds: 3));
     Tween<double> tween = Tween(begin: 0, end: 1);  
@@ -154,7 +159,10 @@ class _GameState extends State<GameView> with SingleTickerProviderStateMixin {
 
         ), 
     ),
+    
+    
     );
+    
   }
 
   void spin() {
@@ -178,11 +186,16 @@ class _GameState extends State<GameView> with SingleTickerProviderStateMixin {
   }
 
   //used to record game statistics
-  void recordStats() {
+  void recordStats() async {
     earnedValue = sectors[sectors.length - randomSectorIndex - 1];
     totalEarnings += earnedValue; 
     spins += 1; 
+
+    // Enregistrer le gain dans la base de données
+    Winnings winning = Winnings(usrId: widget.user.id , amount: earnedValue, date: DateTime.now().toString(), description: "Game earnings");
+    await _databaseHelper.addWinning(winning);
   }
+
   //game stats
   Widget _gameStats() {
     return Align(
@@ -293,7 +306,7 @@ class _GameState extends State<GameView> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     if (kDebugMode) {
                       print("Withdraw \$$totalEarnings ");
-                      resetGame() ; 
+                      //Winnings winnings = Winnings(amount: totalEarnings, date: DateTime.now().toString(), description: "Withdrawal");
                     }
                   },
                   icon : const Icon(Icons.arrow_circle_down, color: Colors.white,), 

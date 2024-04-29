@@ -1,33 +1,38 @@
-// winning.dart
 
-class Winning {
-  final int id;
-  final int userId;
-  final double amount;
+import 'dart:convert';
+
+Winnings usersFromMap(String str) => Winnings.fromMap(json.decode(str));
+
+String usersToMap(Winnings data) => json.encode(data.toMap());
+
+class Winnings {
+  final int usrId;
+  final double amount;  
   final String date;
   final String description;
 
-  Winning({
-    required this.id,
-    required this.userId,
+  Winnings({
+    required this.usrId,
     required this.amount,
     required this.date,
     required this.description,
   });
 
-  factory Winning.fromMap(Map<String, dynamic> json) => Winning(
-        id: json['id'],
-        userId: json['userId'],
-        amount: json['amount'],
-        date: json['date'],
-        description: json['description'],
-      );
+  //These json value must be same as your column name in database that we have already defined
+  //one column didn't match
+  factory Winnings.fromMap(Map<String, dynamic> json) => Winnings(
+    usrId: json["usrId"],
+    amount: json["amount"],
+    date: json["date"],
+    description: json["description"],
+  );
+
+  get id => null;
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'userId': userId,
-        'amount': amount,
-        'date': date,
-        'description': description,
-      };
+    "usrId": usrId,
+    "amount": amount,   
+    "date": date,
+    "description": description,
+  };
 }

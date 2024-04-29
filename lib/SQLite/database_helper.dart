@@ -24,7 +24,6 @@ class DatabaseHelper {
 
   String winningsTable = '''
     CREATE TABLE winnings (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
       userId INTEGER,
       amount REAL,
       date TEXT,
@@ -70,13 +69,13 @@ class DatabaseHelper {
   }
 
   // Add winning
-  Future<void> addWinning(Winning winning) async {
+  Future<void> addWinning(Winnings winning) async {
     final Database db = await initDB();
     await db.insert('winnings', winning.toMap());
   }
 
   // Get user winnings
-  Future<List<Winning>> getUserWinnings(int usrId) async {
+  Future<List<Winnings>> getUserWinnings(int usrId) async {
     final Database db = await initDB();
     final List<Map<String, dynamic>> maps = await db.query(
       'winnings',
@@ -85,7 +84,7 @@ class DatabaseHelper {
     );
 
     return List.generate(maps.length, (i) {
-      return Winning.fromMap(maps[i]);
+      return Winnings.fromMap(maps[i]);
     });
   }
 }
