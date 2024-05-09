@@ -7,13 +7,13 @@ String usersToMap(Winnings data) => json.encode(data.toMap());
 
 class Winnings {
   final int usrId;
-  final double amount;  
+  final String item;  
   final String date;
   final String description;
 
   Winnings({
     required this.usrId,
-    required this.amount,
+    required this.item,
     required this.date,
     required this.description,
   });
@@ -22,16 +22,14 @@ class Winnings {
   //one column didn't match
   factory Winnings.fromMap(Map<String, dynamic> json) => Winnings(
     usrId: json["usrId"],
-    amount: json["amount"],
+    item: json["item"],
     date: json["date"],
     description: json["description"],
   );
 
-  get id => null;
-
   Map<String, dynamic> toMap() => {
     "usrId": usrId,
-    "amount": amount,   
+    "item": item,   
     "date": date,
     "description": description,
   };

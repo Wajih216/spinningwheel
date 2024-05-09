@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:spinningwheel/JSON/winnings.dart';
 import 'package:sqflite/sqflite.dart';
 import '../JSON/users.dart';
-
+import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
   final String databaseName = "auth.db";
@@ -17,18 +17,18 @@ class DatabaseHelper {
       email TEXT,
       usrName TEXT UNIQUE,
       usrPassword TEXT, 
-      phoneNumber TEXT UNIQUE,
-      prize REAL DEFAULT 0.0
+      phoneNumber TEXT UNIQUE
     )
   ''';
 
+
   String winningsTable = '''
     CREATE TABLE winnings (
-      userId INTEGER,
-      amount REAL,
+      usrId INTEGER,
+      item TEXT,
       date TEXT,
       description TEXT,
-      FOREIGN KEY (userId) REFERENCES users(usrId)
+      FOREIGN KEY (usrId) REFERENCES users(usrId)
     )
   ''';
 
@@ -38,7 +38,7 @@ class DatabaseHelper {
     final path = join(databasePath, databaseName);
 
     return openDatabase(path, 
-      version: 3,
+      version: 1,
       onCreate: (db, version) async {
       await db.execute(userTable);
       await db.execute(winningsTable);
@@ -79,7 +79,7 @@ class DatabaseHelper {
     final Database db = await initDB();
     final List<Map<String, dynamic>> maps = await db.query(
       'winnings',
-      where: 'userId = ?',
+      where: 'usrId = ?',
       whereArgs: [usrId],
     );
 
@@ -87,4 +87,31 @@ class DatabaseHelper {
       return Winnings.fromMap(maps[i]);
     });
   }
+
+  // Supprimer un gain spécifique par son ID
+  Future<void> deleteWinning(int winningId) async {
+    final Database db = await initDB();
+    await db.delete(
+      'winnings',
+      where: 'usrId = ?',
+      whereArgs: [winningId],
+    );
+  }
+
+  // Vider tous les gains d'un utilisateur
+  Future<void> deleteAllUserWinnings(int userId) async {
+    final Database db = await initDB();
+    await db.delete(
+      'winnings',
+      where: 'usrId = ?',
+      whereArgs: [userId],
+    );
+  } 
+
+  static Future<String> getDatabasePath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+
 }

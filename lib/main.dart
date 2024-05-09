@@ -19,6 +19,10 @@ void main() async {
   // Initialisez la base de données avant de démarrer l'application
   await DatabaseHelper().initDB();
 
+  // Obtenez le chemin de la base de données et affichez-le dans la console de débogage
+  String dbPath = await DatabaseHelper.getDatabasePath();
+  debugPrint('Chemin de la base de données : $dbPath');
+
   runApp(const MyApp());
 }
 

@@ -29,7 +29,7 @@ class AuthScreen extends StatelessWidget {
                 "Authenticate to access your vital information",
                 style: TextStyle(color: Colors.grey),
               ),
-              Expanded(child: Image.asset("assets/startup.jpg")),
+              Expanded(child: Image.asset("assets/telecom.jpg")),
               Button(label: "LOGIN", press: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginScreen()));
               }),
