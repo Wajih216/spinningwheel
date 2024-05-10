@@ -45,7 +45,13 @@ class DatabaseHelper {
     });
   }
 
-  // Function methods
+  // Check if a user with the same username, email, or phone number already exists
+  Future<bool> checkDuplicateUser(String usrName, String email, String phoneNumber) async {
+    final Database db = await initDB();
+    var result = await db.rawQuery(
+        "SELECT * FROM users WHERE usrName = '$usrName' OR email = '$email' OR phoneNumber = '$phoneNumber'");
+    return result.isNotEmpty;
+  }
 
   // Authentication
   Future<bool> authenticate(Users usr) async {
@@ -113,5 +119,15 @@ class DatabaseHelper {
     return directory.path;
   }
 
-
+  // Update user details
+  Future<bool> updateUser(Users user) async {
+    final Database db = await initDB();
+    final rowsAffected = await db.update(
+      'users',
+      user.toMap(),
+      where: 'usrName = ?',
+      whereArgs: [user.usrName],
+    );
+    return rowsAffected > 0;
+  }
 }

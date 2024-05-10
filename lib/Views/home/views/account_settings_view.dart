@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:spinningwheel/JSON/users.dart';
+import 'package:spinningwheel/Views/home/views/change_password_screen.dart';
+import 'package:spinningwheel/Views/home/views/update_email_screen.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
-  const AccountSettingsScreen({super.key});
+  final Users user;
+  const AccountSettingsScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +19,28 @@ class AccountSettingsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Text(
-            'this part is for account settings',
-            style: TextStyle(fontSize: 18.0),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Account Settings',
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+            ListTile(
+              title: const Text('Change Password'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen(user: user)));
+              },
+            ),
+            ListTile(
+              title: const Text('Update Email'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateEmailScreen()));
+              },
+            ),
+          ],
         ),
       ),
     );

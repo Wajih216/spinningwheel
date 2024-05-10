@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Gérer le tap sur l'élément Paramètres de compte
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AccountSettingsScreen()),
+                  MaterialPageRoute(builder: (context) => AccountSettingsScreen(user : widget.user)),
                 );
               },
             ),

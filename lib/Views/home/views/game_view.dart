@@ -70,7 +70,7 @@ class _GameState extends State<GameView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 140, 255),
+      backgroundColor: Colors.blue,
       body: _body(),
     );
   }
