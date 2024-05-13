@@ -88,6 +88,7 @@ class _GameState extends State<GameView>
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        const SizedBox( ), 
         _wheel(),
         _gameStats(),
         _gameActions(),
@@ -97,9 +98,9 @@ class _GameState extends State<GameView>
 
   Widget _wheel() {
     return Container(
-      padding: const EdgeInsets.only(top: 16, left: 2),
+      padding: const EdgeInsets.only(top: 20, left: 2),
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.width * 0.6,
+      height: MediaQuery.of(context).size.width * 0.8,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/belt.png'),
@@ -114,7 +115,7 @@ class _GameState extends State<GameView>
               angle: controller.value * angle,
               child: Container(
                 margin: EdgeInsets.all(
-                    MediaQuery.of(context).size.width * 0.025),
+                    MediaQuery.of(context).size.width * 0.04),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/wheel.png'),
@@ -138,12 +139,18 @@ class _GameState extends State<GameView>
   }
 
   void spin() {
-    randomSectorIndex = random.nextInt(sectors.length);
+    int newRandomIndex;
+    do {
+      newRandomIndex = random.nextInt(sectors.length);
+    } while (newRandomIndex == randomSectorIndex); // Vérifiez que le nouvel index est différent de l'index précédent
+    
+    randomSectorIndex = newRandomIndex;
     double randomRadian = generateRandomRadianToSpinTo();
     controller.reset();
     angle = randomRadian;
     controller.forward();
   }
+
 
   double generateRandomRadianToSpinTo() {
     return sectorRadians[randomSectorIndex] +
@@ -164,7 +171,7 @@ class _GameState extends State<GameView>
       usrId: widget.user.id,
       item: earnedItem,
       date: DateTime.now().toString(),
-      description: "Game earnings",
+      description: "Gains",
     );
     await _databaseHelper.addWinning(winning);
   }
@@ -180,7 +187,7 @@ class _GameState extends State<GameView>
         ),
         gradient: const LinearGradient(
           colors: [
-            Color(0XFF2d014c),
+            Color.fromARGB(255, 180, 174, 17),
             Color(0XFFf8009e),
           ],
           begin: Alignment.bottomLeft,
@@ -191,8 +198,8 @@ class _GameState extends State<GameView>
         border: TableBorder.all(color: CupertinoColors.systemYellow),
         children: [
           TableRow(children: [
-            _titleColumn("Earned"),
-            _titleColumn("Spins"),
+            _titleColumn("Gagné"),
+            _titleColumn("Tours"),
           ]),
           TableRow(children: [
             _valueColumn(earnedItem),
@@ -260,34 +267,7 @@ class _GameState extends State<GameView>
                 ),
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0XFF2d014c),
-                    Color(0XFFf8009e),
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_circle_down,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          InkWell(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                border: Border.all(
-                  color: CupertinoColors.systemYellow,
-                  width: 2,
-                ),
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0XFF2d014c),
+                    Color.fromARGB(255, 180, 174, 17),
                     Color(0XFFf8009e),
                   ],
                   begin: Alignment.bottomLeft,
@@ -315,7 +295,7 @@ class _GameState extends State<GameView>
                 ),
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0XFF2d014c),
+                    Color.fromARGB(255, 180, 174, 17),
                     Color(0XFFf8009e),
                   ],
                   begin: Alignment.bottomLeft,
@@ -344,6 +324,7 @@ class _GameState extends State<GameView>
       spinning = false;
       spins = 0;
       angle = 0;
+      earnedItem = "" ; 
       controller.reset();
     });
   }

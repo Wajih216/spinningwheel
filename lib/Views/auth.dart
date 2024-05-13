@@ -19,21 +19,21 @@ class AuthScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Authentication",
+                "Authentification",
                 style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: primaryColor),
               ),
               const Text(
-                "Authenticate to access your vital information",
+                "Authentifiez-vous pour accéder au jeu",
                 style: TextStyle(color: Colors.grey),
               ),
               Expanded(child: Image.asset("assets/telecom.jpg")),
-              Button(label: "LOGIN", press: () {
+              Button(label: "SE CONNECTER", press: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginScreen()));
               }),
-              Button(label: "SIGN UP", press: () {
+              Button(label: "S'INSCRIRE", press: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignupScreen()));
               }),
             ],

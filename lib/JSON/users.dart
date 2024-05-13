@@ -5,7 +5,7 @@ Users usersFromMap(String str) => Users.fromMap(json.decode(str));
 String usersToMap(Users data) => json.encode(data.toMap());
 
 class Users {
-  final int? usrId;
+  final int? usrId; // Modifiez le type de données ici
   final String? fullName;
   final String? email;
   final String usrName;
@@ -13,7 +13,7 @@ class Users {
   final String phoneNumber;
   
   Users({
-    this.usrId,
+    required this.usrId, // Modifiez ici également
     this.fullName,
     this.email,
     required this.usrName,
@@ -30,14 +30,15 @@ class Users {
         phoneNumber: json["phoneNumber"],
       );
 
-  get id => usrId;
-
   Map<String, dynamic> toMap() => {
-        "usrId": usrId,
+        "usrId": usrId, 
         "fullName": fullName,
         "email": email,
         "usrName": usrName,
         "usrPassword": password,
         "phoneNumber": phoneNumber,
       };
+
+  get id => usrId;
+  
 }

@@ -130,4 +130,15 @@ class DatabaseHelper {
     );
     return rowsAffected > 0;
   }
+
+  // Delete user
+  Future<bool> deleteUser(Users user) async {
+    final Database db = await initDB() ; 
+    final rowsAffected = await db.delete(
+      'users',
+      where: 'usrId = ?',
+      whereArgs: [user.usrId],
+    );
+    return rowsAffected > 0;
+  }
 }

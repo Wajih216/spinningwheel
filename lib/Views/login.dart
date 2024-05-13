@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //We will take the value of text fields using controllers in order to verify whether details are correct or not
   login()async{
     Users? usrDetails = await db.getUser(usrName.text);
-    var res = await db.authenticate(Users(usrName: usrName.text, password: password.text, phoneNumber: phoneNumber.text));
+    var res = await db.authenticate(Users(usrId : null , usrName: usrName.text, password: password.text, phoneNumber: phoneNumber.text));
     if(res == true){
       //If result is correct then go to profile or home
       if(!mounted)return;
@@ -56,16 +56,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 //Because we don't have account, we must create one to authenticate
                 //lets go to sign up
 
-                const Text("LOGIN",style: TextStyle(color: primaryColor,fontSize: 40),),
+                const Text("SE CONNECTER",style: TextStyle(color: primaryColor,fontSize: 40),),
                 Image.asset("assets/telecom.jpg"),
-                InputField(hint: "Username", icon: Icons.account_circle, controller: usrName),
-                InputField(hint: "Password", icon: Icons.lock, controller: password,passwordInvisible: true),
-                InputField(hint: "Phone Number", icon: Icons.phone, controller: phoneNumber),
+                InputField(hint: "Pseudo", icon: Icons.account_circle, controller: usrName),
+                InputField(hint: "Mot de passe", icon: Icons.lock, controller: password,passwordInvisible: true),
+                InputField(hint: "Numéro de téléphone", icon: Icons.phone, controller: phoneNumber),
                 
                 const SizedBox(height: 10),
 
                 //Our login button
-                Button(label: "LOGIN", press: (){
+                Button(label: "SE CONNECTER", press: (){
                 login();
 
                 }),
@@ -73,19 +73,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account?",style: TextStyle(color: Colors.grey),),
+                    const Text("Vous n\'avez pas de compte ?",style: TextStyle(color: Colors.grey),),
                     TextButton(
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignupScreen()));
                         },
-                        child: const Text("SIGN UP"))
+                        child: const Text("S'INSCRIRE"))
                   ],
                 ),
 
                  // Access denied message in case when your username and password is incorrect
                 //By default we must hide it
                  //When login is not true then display the message
-                 isLoginTrue? Text("Username or password is incorrect",style: TextStyle(color: Colors.red.shade900),):const SizedBox(),
+                 isLoginTrue? Text("Vérifiez vos identifiants",style: TextStyle(color: Colors.red.shade900),):const SizedBox(),
               ],
             ),
           ),

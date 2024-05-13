@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:spinningwheel/JSON/users.dart';
-import 'package:spinningwheel/JSON/winnings.dart';
 import 'package:spinningwheel/Views/auth.dart';
 import 'package:spinningwheel/Views/home/views/about_view.dart';
 import 'package:spinningwheel/Views/home/views/account_settings_view.dart';
 import 'package:spinningwheel/Views/home/views/game_view.dart';
 import 'package:spinningwheel/Views/home/views/winning_page.dart';
 import 'package:spinningwheel/Views/profile.dart';
-import 'package:spinningwheel/Views/home/views/settings_view.dart';
 
 class HomeScreen extends StatefulWidget {
   
@@ -25,21 +23,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
    return Scaffold(
       appBar: AppBar(
-        title:const Text('Spinning Wheel'),
+        title:const Text('Roue de la Fortune'),
         backgroundColor: Colors.blue,
         leading : Builder(
           builder : (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu), // Icône de menu
               onPressed: () {
-                Scaffold.of(context).openDrawer(); // Ouvrir la barre de navigation latérale
+                Scaffold.of(context).openDrawer(); // Ouvrir le tiroir de navigation
               },
             );
           }, 
         ),  
       ),
       drawer: Drawer(
-        // Barre de navigation latérale
+        // Tiroir de navigation
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -61,10 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
             ListTile(
-              leading: const Icon(Icons.account_circle), // Icône Paramètres de compte
-              title: const Text('Account Settings'),
+              leading: const Icon(Icons.account_circle), // Icône Paramètres du compte
+              title: const Text('Paramètres du compte'),
               onTap: () {
-                // Gérer le tap sur l'élément Paramètres de compte
+                // Gérer le tap sur l'élément Paramètres du compte
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AccountSettingsScreen(user : widget.user)),
@@ -72,19 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings), // Icône Paramètres
-              title: const  Text('Settings'),
-              onTap: () {
-                // Gérer le tap sur l'élément Paramètres
-                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SettingsScreen()),
-                );
-              },
-            ),
-            ListTile(
               leading: const  Icon(Icons.info), // Icône "À propos"
-              title: const  Text('About'),
+              title: const  Text('À propos'),
               onTap: () {
                 // Gérer le tap sur l'élément "À propos"
                 Navigator.push(
@@ -95,10 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.logout), // Icône de déconnexion
-              title: const  Text('Log out'), // Titre du ListTile
+              title: const  Text('Se déconnecter'), // Titre du ListTile
               onTap: () {
                 // Gérer le tap sur l'élément de déconnexion
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AuthScreen()));           // Fermer la barre de navigation latérale
+                Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AuthScreen()),
+                      (route) => false, // supprime les routes précédentes 
+                    ); // Fermer le tiroir de navigation
               },
             ),
             // Ajoutez d'autres éléments de navigation selon vos besoins
@@ -127,19 +118,19 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad_sharp),
-            label: 'Game',
+            icon: Icon(Icons.gamepad),
+            label: 'Jeu',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Prizes List',
+            label: 'Gains',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Profil',
           ),
         ],
       ),
     );
   }
-}
+} 

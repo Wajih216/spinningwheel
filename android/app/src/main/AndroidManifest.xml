@@ -1,10 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.spinningwheel">
 
-    <!-- Ajoutez la permission pour accéder au stockage externe -->
+    <!-- permission pour accéder au stockage externe -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- permission pour les notifications -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BATTERY_STATS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <application
+        <application
         android:label="spinningwheel"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

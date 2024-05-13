@@ -34,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
         password.text.isEmpty ||
         phoneNumber.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
+        const SnackBar(content: Text('Veuillez remplir tous les champs')),
       );
       return;
     }
@@ -42,7 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
     // Check phone number format
     if (!RegExp(r'^9[0-9]{1}$').hasMatch(phoneNumber.text.substring(0, 2))) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Phone number must start with "90" to "99"')),
+        const SnackBar(content: Text('Le numéro de téléphone doit commencer par "90" à "99"')),
       );
       return;
     }
@@ -50,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
     // Check phone number length
     if (phoneNumber.text.length != 8) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Phone number must be 8 digits long')),
+        const SnackBar(content: Text('Le numéro de téléphone doit comporter 8 chiffres')),
       );
       return;
     }
@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
     // Check for repeating digits in phone number
     if (RegExp(r'(\d)\1\1\1').hasMatch(phoneNumber.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Phone number cannot contain a series of the same digit')),
+        const SnackBar(content: Text('Le numéro de téléphone ne peut pas contenir une série de chiffres identiques')),
       );
       return;
     }
@@ -70,7 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text(
-                'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character, and be at least 8 characters long')),
+                'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial et avoir une longueur d\'au moins 8 caractères')),
       );
       return;
     }
@@ -89,13 +89,14 @@ class _SignupScreenState extends State<SignupScreen> {
     if (userExists) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('An account with the same username, email, or phone number already exists')),
+            content: Text('Un compte avec le même nom d\'utilisateur, email ou numéro de téléphone existe déjà')),
       );
       return;
     }
 
     // Proceed with signup
     var res = await db.createUser(Users(
+        usrId: null ,
         fullName: fullName.text,
         email: email.text,
         usrName: usrName.text,
@@ -110,10 +111,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
   String? validateEmail(String value) {
     if (value.isEmpty) {
-      return 'Email cannot be empty';
+      return 'Email ne peut pas être vide';
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email address';
+      return 'Adresse email invalide';
     }
     return null;
   }
@@ -130,27 +131,27 @@ class _SignupScreenState extends State<SignupScreen> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    "Register New Account",
+                    "Créer un nouveau compte",
                     style: TextStyle(color: primaryColor, fontSize: 55, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 20),
-                InputField(hint: "Full name", icon: Icons.person, controller: fullName),
+                InputField(hint: "nom complet", icon: Icons.person, controller: fullName),
                 InputField(hint: "Email", icon: Icons.email, controller: email),
-                InputField(hint: "Username", icon: Icons.account_circle, controller: usrName),
-                InputField(hint: "Password", icon: Icons.lock, controller: password, passwordInvisible: true),
-                InputField(hint: "Phone Number", icon: Icons.phone, controller: phoneNumber),
+                InputField(hint: "Pseudo", icon: Icons.account_circle, controller: usrName),
+                InputField(hint: "Mot de passe", icon: Icons.lock, controller: password, passwordInvisible: true),
+                InputField(hint: "Numéro de téléphone", icon: Icons.phone, controller: phoneNumber),
                 const SizedBox(height: 10),
-                Button(label: "SIGN UP", press: signUp),
+                Button(label: "S'INSCRIRE", press: signUp),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an account?", style: TextStyle(color: Colors.grey)),
+                    const Text("Possédez-vous déjà un compte ?", style: TextStyle(color: Colors.grey)),
                     TextButton(
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                       },
-                      child: const Text("LOGIN"),
+                      child: const Text("SE CONNECTER"),
                     )
                   ],
                 )
